@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model tb_oticas {
+  otica_id     Int       @id @db.Int @default(autoincrement())
+  plano_id     Int      @default(1) @db.Int
+  nome_otica   String    @db.VarChar(127)
+  nome_usuario String    @db.VarChar(127)
+  senha        String    @db.VarChar(127)
+  email        String    @db.VarChar(127)
+}
+
+model tb_pagamentos {
+  pagamentos_id   Int       @id @default(autoincrement()) @db.Int
+  plano_id        Int       @db.Int
+  otica_id        Int       @db.Int
+  user_atividade  String    @db.VarChar(127)
+  valor_pagamento Decimal   @db.Decimal(10, 2)
+}
+
+model tb_imagens {
+  imagem_id   Int       @id @default(autoincrement()) @db.Int
+  otica_id    Int       @db.Int
+  date_upload DateTime  @default(now()) @db.Timestamp(0)
+  nome_img    String    @db.VarChar(63)
+  modelo      String    @db.VarChar(63)
+  preco       String    @db.VarChar(63)
+  formato     String    @db.VarChar(63)
+}
+
